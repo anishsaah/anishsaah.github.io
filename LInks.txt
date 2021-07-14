@@ -1,4 +1,0 @@
-Useful links
-1. https://learngitbranching.js.org/
-2. https://skulpt.org/
-3. https://stackoverflow.com/questions/34429024/what-is-the-purpose-of-the-integrity-attribute-in-html
