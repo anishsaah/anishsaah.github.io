@@ -2,9 +2,128 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My project</title>
+    <title>My portfolio</title>
 </head>
 <body>
+
+
+<div id="loading">
+    loading.................
+</div>
+
+
+<div class="reposs" style="height: 0;">
+    <h1 id="projects">My Projects</h1>
+    <ul id="repo-list">
+
+    </ul>
+    <p id="githubLink">
+        Check me Guyz on <a href="https://github.com/anishsaah">Github</a>
+    </p>
+</div>
+
+
+<div class="main" id="mainContainer">
+    <img
+            height="200"
+            id="profileImage"
+            src="https://avatars.githubusercontent.com/u/31166099?v=4"
+            width="200"
+      alt="">
+    <h2 id="fullName">Anish Sah</h2>
+    <p></p>
+    <h5 id="publicRepos"></h5>
+    <h5 id="followersInformation"></h5>
+
+</div>
+<script>
+        fetch("https://api.github.com/users/anishsaah")
+        .then(response => response.json())
+        .then(function(data){
+            console.log(data)
+
+            let followersCount = data['followers']
+            let followersInfo = `Total no of Followers: ${followersCount} `
+            let publicReposCount = data['public_repos']
+            let publicReposInfo = `Total Public Repositories: ${publicReposCount}`
+            document.getElementById('profileImage').src=data['avatar_url']
+            document.getElementById('fullName').textContent=data['name']
+            document.getElementById('followersInformation').textContent= followersInfo
+            document.getElementById('publicRepos').textContent=publicReposInfo
+            document.getElementById('githubLink').href=data['html_url']
+
+            document.getElementById('mainContainer').hidden= false
+            document.getElementById('loading').hidden= true
+        }
+        )
+
+
+        //fetch repos
+        fetch("https://api.github.com/users/anishsaah/repos")
+        .then(response => response.json())
+        .then(function(repoData){
+        repoData.forEach((repo)=> {
+            console.log(repo.name)
+
+
+	    const liNode = document.createElement("li");
+	    liNode.classList.add("list-item");
+
+
+	    const headingNode = document.createElement("h3");
+	    const name = document.createTextNode(repo.name);
+	    headingNode.appendChild(name);
+
+	    headingNode.appendChild(name);
+
+	    liNode.appendChild(headingNode);
+
+            document.getElementById("repo-list").appendChild(liNode);
+	  })
+        })
+
+
+</script>
+
+
+<style>
+
+    *{
+        text-align: center;
+        background-color: black;
+        color:lightblue;
+        padding-left: 5px;
+        padding-right: 5px;
+        list-style: none;
+    }
+
+
+    #repo-list,#githubLink{
+
+    	text-align:center;
+    	padding-top: 70px;
+    }
+
+
+    #projects{
+        text-align: center;
+        opacity: 0.7;
+        height: 0;
+    }
+
+
+    #projects:hover{
+        opacity: 1;
+        color:white;
+    }
+
+
+    #mainContainer{
+
+    	float: left;
+    }
+
+</style>
 
 </body>
 </html>
